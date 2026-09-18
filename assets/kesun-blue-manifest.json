@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "template_id": "kesun-live-blue",
+  "fonts": {
+    "title": {
+      "postscript_name": "AlimamaShuHeiTi-Bold",
+      "file": "fonts/AlimamaShuHeiTi-Bold.otf"
+    },
+    "label_bold": {
+      "postscript_name": "FZLTTHJW--GB1-0",
+      "file": "fonts/FZLTTHJW.TTF"
+    },
+    "label_regular": {
+      "postscript_name": "FZLTHJW--GB1-0",
+      "file": "fonts/FZLTHJW.TTF"
+    },
+    "alimama_compat": {
+      "file": "fonts/阿里妈妈数黑体.ttf"
+    }
+  },
+  "program_layers": {
+    "玩转产品": "玩转产品",
+    "AI工作坊": "AI工作坊",
+    "顺道聊聊": "顺道聊聊-蓝"
+  },
+  "templates": {
+    "poster": {
+      "file": "templates/常规蓝色-宣传海报.psd",
+      "canvas": [1080, 1920],
+      "title_layers": [
+        ["主题", "标题", "产品经理在线回复"],
+        ["主题", "标题", "自洁型辐射制冷你问我答"]
+      ],
+      "title_geometry": [
+        {"center": [500, 310], "min_width": 720, "max_width": 900},
+        {"center": [540, 438], "min_width": 820, "max_width": 1000}
+      ],
+      "title_effect_source": ["主题", "标题"],
+      "subtitle_layer": ["主题", "标题", "防水老兵解析未来10年的市场机遇"],
+      "portrait_parent": ["相框主体", "组 1"],
+      "template_portraits": [
+        ["相框主体", "组 1", "李贤志"],
+        ["相框主体", "组 1", "亮度/对比度 1"]
+      ],
+      "template_labels": [["相框主体", "姓名"]],
+      "time_layer": ["底部背景", "09月14日 20:00"],
+      "time_center": [505, 1716],
+      "platform_layer": ["底部背景", "企业微信"],
+      "platform_center": [355, 1815],
+      "cta_layer": ["底部背景", "扫码 开启直播"],
+      "cta_center": [575, 1815],
+      "qr_layer": ["底部背景", "企业微信截图_17833324779516"],
+      "qr_box": [34, 1648, 216, 227],
+      "slogan_layer": ["logo", "一次防水一次就好"],
+      "portrait_layout": {
+        "single": {"face_height": 260, "face_centers_x": [540], "eye_y": 825},
+        "double": {"face_height": 205, "face_centers_x": [335, 705], "eye_y": 820},
+        "triple": {"face_height": 182, "face_centers_x": [255, 540, 825], "eye_y": 835}
+      },
+      "label_top": 850,
+      "export": "01-常规直播海报.png",
+      "transparent": false
+    },
+    "enterprise_cover_800": {
+      "file": "templates/直播封面【企微】-800x640.psd",
+      "canvas": [800, 640],
+      "title_layers": [
+        ["主题", "标题", "产品经理在线回复"],
+        ["主题", "标题", "自洁型辐射制冷你问我答"]
+      ],
+      "title_geometry": [
+        {"center": [385, 250], "min_width": 610, "max_width": 700},
+        {"center": [400, 350], "min_width": 690, "max_width": 760}
+      ],
+      "slogan_layer": ["logo组合", "一次防水"],
+      "export": "02-企业微信直播封面-800x640.png",
+      "transparent": false
+    },
+    "enterprise_cover_1080": {
+      "file": "templates/直播封面【企微直播用】1080x2160.psd",
+      "canvas": [1080, 2160],
+      "title_layers": [
+        ["主题", "标题", "产品经理在线回复"],
+        ["主题", "标题", "自洁型辐射制冷你问我答"]
+      ],
+      "title_geometry": [
+        {"center": [500, 665], "min_width": 720, "max_width": 900},
+        {"center": [540, 800], "min_width": 820, "max_width": 1000}
+      ],
+      "portrait_parent": ["相框主体", "组 1"],
+      "template_portraits": [
+        ["相框主体", "组 1", "李贤志"],
+        ["相框主体", "组 1", "亮度/对比度 1"]
+      ],
+      "template_labels": [["相框主体", "姓名"]],
+      "portrait_layout": {
+        "single": {"face_height": 260, "face_centers_x": [540], "eye_y": 1050},
+        "double": {"face_height": 205, "face_centers_x": [335, 705], "eye_y": 1050},
+        "triple": {"face_height": 182, "face_centers_x": [255, 540, 825], "eye_y": 1065}
+      },
+      "label_top": 900,
+      "export": "03-企业微信直播封面-1080x2160.png",
+      "transparent": false
+    },
+    "wechat_channels_cover": {
+      "file": "templates/03 直播图(预留出血位版本).psd",
+      "canvas": [1920, 3415],
+      "title_layers": [
+        ["主题", "标题", "别再卷沥青，"],
+        ["主题", "标题", "未来属于高分子"]
+      ],
+      "title_geometry": [
+        {"center": [960, 675], "min_width": 1180, "max_width": 1500},
+        {"center": [960, 860], "min_width": 1050, "max_width": 1500}
+      ],
+      "portrait_parent": ["相框主体", "组 1"],
+      "template_portraits": [
+        ["相框主体", "组 1", "叶吉-西装"],
+        ["相框主体", "组 1", "马海建"]
+      ],
+      "time_layer": ["底部背景", "08月27日 20:00"],
+      "time_center": [750, 2940],
+      "portrait_layout": {
+        "single": {"face_height": 430, "face_centers_x": [960], "eye_y": 1450},
+        "double": {"face_height": 365, "face_centers_x": [680, 1240], "eye_y": 1475},
+        "triple": {"face_height": 320, "face_centers_x": [480, 960, 1440], "eye_y": 1500}
+      },
+      "label_top": 1580,
+      "export": "02-微信视频号直播封面-预留出血位.png",
+      "transparent": false
+    },
+    "live_background": {
+      "file": "templates/01 直播背景.psd",
+      "canvas": [1080, 1920],
+      "title_layers": [
+        ["主题", "产品经理在线回复"],
+        ["主题", "自洁型辐射制冷你问我答"]
+      ],
+      "title_geometry": [
+        {"center": [540, 241], "min_width": 0, "max_width": 0},
+        {"center": [540, 322], "min_width": 0, "max_width": 0}
+      ],
+      "export": "04-直播背景-透明底.png",
+      "transparent": true
+    }
+  },
+  "label_style": {
+    "font": "label_bold",
+    "name_fill": "#CDFAFF",
+    "role_fill": "#FFEF52",
+    "text_color": "#0059A9",
+    "name_font_size": 42,
+    "role_font_size": 34,
+    "name_width": 70,
+    "role_width": 72,
+    "name_tracking": 2,
+    "role_tracking": 3,
+    "vertical_padding": 16,
+    "name_offset_y": 48,
+    "left_x": [65, 133],
+    "right_x": [877, 945]
+  },
+  "qa": {
+    "face_height_tolerance": 0.05,
+    "eye_line_tolerance_canvas_ratio": 0.02,
+    "two_person_face_center_gap_ratio": [0.32, 0.36],
+    "two_person_default_gap_ratio": 0.343,
+    "outer_margin_1080": [60, 65],
+    "max_visible_span_ratio": 0.89,
+    "face_exclusion_expansion": 0.14
+  }
+}

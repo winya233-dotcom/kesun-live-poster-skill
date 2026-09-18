@@ -1,0 +1,28 @@
+{
+  "suite_type": "enterprise_wechat",
+  "title": "斩获大湾区百亿工程，科安顺助力广州机场建设",
+  "title_lines": [
+    "斩获大湾区百亿工程",
+    "科安顺助力广州机场建设"
+  ],
+  "title_emphasis": null,
+  "display_time": "09月11日 16:00",
+  "cta": "企业微信扫码 观看直播",
+  "program": "顺道聊聊",
+  "show_once_waterproof_slogan": false,
+  "qr_code_path": "inputs/qr.png",
+  "people": [
+    {
+      "id": "guest",
+      "name": "席浩岩",
+      "role": "科安顺减隔震事业部业务总监",
+      "portrait_path": "inputs/guest.jpg"
+    },
+    {
+      "id": "host",
+      "name": "李文秀",
+      "role": "主持人",
+      "portrait_path": "inputs/host.jpg"
+    }
+  ]
+}

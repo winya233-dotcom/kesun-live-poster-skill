@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.venv/
+.work/
+output/
+*.inspect.ndjson
+Thumbs.db
+.DS_Store
