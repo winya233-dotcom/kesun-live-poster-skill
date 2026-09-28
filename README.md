@@ -39,7 +39,14 @@
 
 ## 安装到 Codex
 
-将本仓库克隆或解压到：
+本仓库的 PSD、字体和模型由 Git LFS 管理。首次使用先安装 Git LFS，然后将仓库克隆到 Codex Skills 目录：
+
+```powershell
+git lfs install
+git clone https://github.com/winya233-dotcom/kesun-live-poster-skill.git "$env:USERPROFILE\.codex\skills\live-poster-generator"
+```
+
+最终目录应为：
 
 ```text
 %USERPROFILE%\.codex\skills\live-poster-generator
