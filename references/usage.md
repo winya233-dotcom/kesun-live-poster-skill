@@ -4,10 +4,12 @@
 
 ```powershell
 python scripts/install_bundled_assets.py
-python scripts/check_environment.py
 python -m pip install -r scripts/requirements.txt
 powershell -ExecutionPolicy Bypass -File scripts/install_fonts.ps1
+python scripts/check_environment.py
 ```
+
+也可以在 Skill 根目录运行 `powershell -ExecutionPolicy Bypass -File .\setup.ps1` 一次完成。安装后看不到 PSD 时，先执行资源恢复命令；不要把尚未解压误判为仓库缺文件。
 
 高保真 PNG 需要 Windows 版 Adobe Photoshop。PPT 输出需要 Node.js 和 `@oai/artifact-tool`；在 Codex 桌面版中优先使用工作区自带运行时。
 

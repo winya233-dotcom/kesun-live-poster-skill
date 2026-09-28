@@ -9,12 +9,30 @@ metadata:
 
 使用 Skill 内置的已核准 PSD、字体和品牌素材生成直播套图。不要要求用户重新上传模板，也不要每次重新推断 PSD 图层。
 
+## 强制初始化（每个新主机必须先执行）
+
+在检查模板、分析需求或报告“缺少 PSD”之前，**必须**先在本 Skill 根目录执行：
+
+```powershell
+python scripts/install_bundled_assets.py
+```
+
+仓库为了兼容 GitHub 单文件大小限制，将 6 个 PSD、4 个字体和 2 个模型保存在 `asset-packs/*.zip` 中。刚安装时 `assets/templates/` 不存在是正常状态，不代表仓库漏传文件。上面的命令只解压仓库内已有资源，不访问网络。禁止在尚未执行该命令时要求用户补传 PSD。
+
+随后执行：
+
+```powershell
+python scripts/check_environment.py
+```
+
+如果宿主只复制了 Skill 文件而没有执行安装脚本，首次响应用户请求时也要由 Agent 主动完成这两步。`check_environment.py` 和 `run_pipeline.py` 会再次自动恢复资源，作为兜底。
+
 ## 执行入口
 
 1. 从用户消息、图片、表格或文档中提取结构化输入，遵循 [references/input-schema.md](references/input-schema.md)。
 2. 按 [references/platform-output-rules.md](references/platform-output-rules.md) 判定企业微信或微信视频号套图。
 3. 遇到“生成职业形象照”或“重点突出主标题”时，先执行 [references/prompt-intents.md](references/prompt-intents.md)。职业照生成使用可用的图片生成 Skill；没有明确生成指令时只做修图和抠图，不改变身份。
-4. 首次运行或环境变化后执行 `python scripts/check_environment.py`。缺少依赖时按 [references/dependencies.md](references/dependencies.md) 处理。
+4. 首次运行或环境变化后先执行 `python scripts/install_bundled_assets.py`，再执行 `python scripts/check_environment.py`。缺少依赖时按 [references/dependencies.md](references/dependencies.md) 处理。
 5. 对人物执行 `scripts/remove_background.py` 和 `scripts/analyze_portraits.py`，然后执行 [references/rendering-qa.md](references/rendering-qa.md) 的碰撞与安全区检查。
 6. 用 `scripts/build_photoshop_job.py` 生成任务，再通过 `scripts/run_photoshop.ps1` 调用 Photoshop。PSD 图层、字号、光效、渐变、阴影和装饰以模板为准，禁止用生成式图片重绘整张海报。
 7. 用 `scripts/build_editable_ppt.mjs` 输出每张非背景物料对应的单页 PPTX。仅人物、姓名/职务、时间/扫码小字和二维码可编辑，其余保持固定。

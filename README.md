@@ -61,14 +61,24 @@ $live-poster-generator 输出企业微信直播套图……
 
 ## 首次配置
 
+安装器只负责复制 Skill 文件时，PSD 不会自动出现在 `assets/templates/`；它们位于仓库自带的 `asset-packs/` 中。请先运行一键初始化：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\setup.ps1
+```
+
+只恢复内置素材、不安装运行依赖时：
+
 ```powershell
 python scripts/install_bundled_assets.py
-python -m pip install -r scripts/requirements.txt
-powershell -ExecutionPolicy Bypass -File scripts/install_fonts.ps1
 python scripts/check_environment.py
 ```
 
-`check_environment.py` 和 `run_pipeline.py` 也会在发现素材未解包时自动执行恢复，因此通常无需手动运行第一条命令。
+`install_bundled_assets.py` 不联网，只解压当前仓库中的资源包。`check_environment.py` 和 `run_pipeline.py` 也会自动恢复素材。新主机在执行解包前看不到 6 个 PSD 属于正常状态，不要重新向用户索取模板。
+
+### 第三方 Agent 安装器注意事项
+
+某些 Agent/Skill 安装器只复制仓库文件，不会执行任何安装后脚本。此时应让 Agent 读取 `SKILL.md`，并在首次调用时主动执行 `python scripts/install_bundled_assets.py`。若安装器会过滤 ZIP 文件，请改用 Git 克隆或下载本仓库完整源码，确认 `asset-packs/` 下 5 个 ZIP 均存在。
 
 ## 命令行执行
 
