@@ -8,6 +8,14 @@
 - Python 包：`Pillow`、`numpy`、`opencv-python`、`mediapipe`、`rembg`、`onnxruntime`。
 - Codex 桌面版内置演示文稿运行时，或能提供 `@oai/artifact-tool` 的 Node.js 环境，用于局部可编辑 PPTX。
 
+仓库中的核心二进制素材位于 `asset-packs/*.zip`，使用普通 Git 分发，不依赖 Git LFS。首次运行以下命令恢复模板、字体和模型：
+
+```powershell
+python scripts/install_bundled_assets.py
+```
+
+`check_environment.py`、`run_pipeline.py` 和 `install_fonts.ps1` 都会自动调用该步骤。
+
 安装 Python 依赖：
 
 ```powershell

@@ -39,10 +39,9 @@
 
 ## 安装到 Codex
 
-本仓库的 PSD、字体和模型由 Git LFS 管理。首次使用先安装 Git LFS，然后将仓库克隆到 Codex Skills 目录：
+PSD、字体和模型已压缩为普通 Git 资产包，不依赖 Git LFS。将仓库直接克隆到 Codex Skills 目录：
 
 ```powershell
-git lfs install
 git clone https://github.com/winya233-dotcom/kesun-live-poster-skill.git "$env:USERPROFILE\.codex\skills\live-poster-generator"
 ```
 
@@ -63,10 +62,13 @@ $live-poster-generator 输出企业微信直播套图……
 ## 首次配置
 
 ```powershell
+python scripts/install_bundled_assets.py
 python -m pip install -r scripts/requirements.txt
 powershell -ExecutionPolicy Bypass -File scripts/install_fonts.ps1
 python scripts/check_environment.py
 ```
+
+`check_environment.py` 和 `run_pipeline.py` 也会在发现素材未解包时自动执行恢复，因此通常无需手动运行第一条命令。
 
 ## 命令行执行
 

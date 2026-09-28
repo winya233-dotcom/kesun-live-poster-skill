@@ -3,6 +3,7 @@
 ## 1. 准备环境
 
 ```powershell
+python scripts/install_bundled_assets.py
 python scripts/check_environment.py
 python -m pip install -r scripts/requirements.txt
 powershell -ExecutionPolicy Bypass -File scripts/install_fonts.ps1

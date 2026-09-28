@@ -19,6 +19,10 @@ def run(command: list[str]) -> None:
     subprocess.run(command, check=True)
 
 
+def ensure_bundled_assets(python: str) -> None:
+    run([python, str(SCRIPTS / "install_bundled_assets.py")])
+
+
 def validate(request: dict[str, object]) -> None:
     required = ["suite_type", "title", "display_time", "program", "people"]
     missing = [key for key in required if not request.get(key)]
@@ -56,6 +60,7 @@ def main() -> None:
     parser.add_argument("--python", default=sys.executable)
     args = parser.parse_args()
 
+    ensure_bundled_assets(args.python)
     request_path = args.request.resolve()
     request = json.loads(request_path.read_text(encoding="utf-8"))
     validate(request)

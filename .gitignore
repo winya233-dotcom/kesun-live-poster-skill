@@ -4,5 +4,8 @@ __pycache__/
 .work/
 output/
 *.inspect.ndjson
+assets/templates/
+assets/fonts/
+assets/models/
 Thumbs.db
 .DS_Store

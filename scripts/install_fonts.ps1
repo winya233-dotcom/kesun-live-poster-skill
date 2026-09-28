@@ -1,5 +1,7 @@
 $ErrorActionPreference = 'Stop'
 $skillDir = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
+$assetInstaller = Join-Path $skillDir 'scripts\install_bundled_assets.py'
+python $assetInstaller
 $fontSource = Join-Path $skillDir 'assets\fonts'
 $fontTarget = Join-Path $env:LOCALAPPDATA 'Microsoft\Windows\Fonts'
 $registryPath = 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Fonts'

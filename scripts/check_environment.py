@@ -5,6 +5,7 @@ import importlib.util
 import json
 import os
 import platform
+import subprocess
 import sys
 from pathlib import Path
 
@@ -21,6 +22,14 @@ def main() -> int:
     errors: list[str] = []
     warnings: list[str] = []
     checks: dict[str, object] = {}
+
+    installer = SKILL_DIR / "scripts" / "install_bundled_assets.py"
+    try:
+        subprocess.run([sys.executable, str(installer)], check=True, capture_output=True, text=True)
+        checks["bundled_assets_restored"] = True
+    except Exception as exc:
+        checks["bundled_assets_restored"] = False
+        errors.append(f"Could not restore bundled assets: {exc}")
 
     checks["platform"] = platform.platform()
     if os.name != "nt":
