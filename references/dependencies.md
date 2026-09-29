@@ -4,11 +4,12 @@
 
 - Windows 10/11。
 - Adobe Photoshop，支持 ExtendScript 和 COM 自动化。
-- Python 3.10 或 3.11。
-- Python 包：`Pillow`、`numpy`、`opencv-python`、`mediapipe`、`rembg`、`onnxruntime`。
+- Python 3.10–3.13。
+- 必需 Python 包：`Pillow`、`numpy`、`opencv-python`、`rembg`、`onnxruntime`。
+- 可选增强：`mediapipe`。当前 Python 没有可用轮子时会自动回退 OpenCV，不阻塞生成。
 - Codex 桌面版内置演示文稿运行时，或能提供 `@oai/artifact-tool` 的 Node.js 环境，用于局部可编辑 PPTX。
 
-仓库中的核心二进制素材位于 `asset-packs/*.zip`，使用普通 Git 分发，不依赖 Git LFS。首次运行以下命令恢复模板、字体和模型：
+仓库中的核心二进制素材位于 `asset-packs/`，使用普通 Git 分发，不依赖 Git LFS。大型模板 ZIP 已拆分为约 8 MB 的 `.partNNN` 文件，恢复器会自动拼接并校验。首次运行以下命令恢复模板、字体和模型：
 
 ```powershell
 python scripts/install_bundled_assets.py

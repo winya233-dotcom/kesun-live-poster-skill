@@ -23,7 +23,7 @@
 
 - Photoshop PSD 高保真自动化渲染
 - BiRefNet/rembg 人像抠图
-- MediaPipe + OpenCV 人脸、姿态和安全区分析
+- MediaPipe + OpenCV 人脸、姿态和安全区分析；MediaPipe 不可用时自动回退 OpenCV
 - 单人、双人、三人人像自动排版
 - 姓名与职务标签动态尺寸和碰撞检测
 - 主标题重点词放大、居中和模板效果继承
@@ -34,7 +34,7 @@
 
 - Windows 10/11
 - Adobe Photoshop
-- Python 3.10 或 3.11
+- Python 3.10–3.13；MediaPipe 在不支持的 Python 版本上自动作为可选项跳过
 - Node.js 与 `@oai/artifact-tool`（生成 PPTX 时需要）
 
 ## 安装到 Codex
@@ -78,7 +78,7 @@ python scripts/check_environment.py
 
 ### 第三方 Agent 安装器注意事项
 
-某些 Agent/Skill 安装器只复制仓库文件，不会执行任何安装后脚本。此时应让 Agent 读取 `SKILL.md`，并在首次调用时主动执行 `python scripts/install_bundled_assets.py`。若安装器会过滤 ZIP 文件，请改用 Git 克隆或下载本仓库完整源码，确认 `asset-packs/` 下 5 个 ZIP 均存在。
+某些 Agent/Skill 安装器只复制仓库文件，不会执行任何安装后脚本。此时应让 Agent 读取 `SKILL.md`，并在首次调用时主动执行 `python scripts/install_bundled_assets.py`。大型模板包已拆成约 8 MB 的 `.partNNN` 文件；恢复器会自动拼接并校验 ZIP，避免代理过滤大文件。
 
 ## 命令行执行
 

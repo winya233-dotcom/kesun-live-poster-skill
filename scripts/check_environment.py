@@ -41,12 +41,16 @@ def main() -> int:
     else:
         manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
 
-    required_packages = ["PIL", "numpy", "cv2", "mediapipe", "rembg", "onnxruntime"]
+    required_packages = ["PIL", "numpy", "cv2", "rembg", "onnxruntime"]
     package_state = {name: importlib.util.find_spec(name) is not None for name in required_packages}
     checks["python_packages"] = package_state
     for name, present in package_state.items():
         if not present:
             errors.append(f"Missing Python package: {name}")
+    mediapipe_present = importlib.util.find_spec("mediapipe") is not None
+    checks["mediapipe_optional"] = mediapipe_present
+    if not mediapipe_present:
+        warnings.append("MediaPipe is unavailable; portrait analysis will use the OpenCV fallback")
 
     assets: dict[str, bool] = {}
     for spec in manifest.get("templates", {}).values():

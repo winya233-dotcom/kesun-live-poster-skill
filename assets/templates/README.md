@@ -1,6 +1,6 @@
 # Templates are bundled
 
-The six PSD files are stored in `../../asset-packs/*.zip` to stay below GitHub's per-file size limit.
+The six PSD files are stored in `../../asset-packs/`. Large ZIP files are split into approximately 8 MB `.partNNN` files to survive proxy and installer limits.
 
 Before reporting missing templates, run this command from the Skill root:
 

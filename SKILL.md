@@ -17,7 +17,7 @@ metadata:
 python scripts/install_bundled_assets.py
 ```
 
-仓库为了兼容 GitHub 单文件大小限制，将 6 个 PSD、4 个字体和 2 个模型保存在 `asset-packs/*.zip` 中。刚安装时 `assets/templates/` 不存在是正常状态，不代表仓库漏传文件。上面的命令只解压仓库内已有资源，不访问网络。禁止在尚未执行该命令时要求用户补传 PSD。
+仓库为了兼容 GitHub 和代理的单文件大小限制，将 6 个 PSD、4 个字体和 2 个模型保存在 `asset-packs/` 中；大型模板 ZIP 被拆成约 8 MB 的 `.partNNN` 文件。刚安装时 `assets/templates/` 没有 PSD 是正常状态，不代表仓库漏传文件。上面的命令会自动拼接、校验并解压仓库内已有资源，不访问网络。禁止在尚未执行该命令时要求用户补传 PSD。
 
 随后执行：
 

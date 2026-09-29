@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import argparse
+import tempfile
 import zipfile
+from contextlib import contextmanager
 from pathlib import Path
+from typing import BinaryIO, Iterator
 
 
 SKILL_DIR = Path(__file__).resolve().parents[1]
@@ -32,14 +35,50 @@ EXPECTED = [
 ]
 
 
-def safe_extract(archive_path: Path, destination: Path) -> None:
+def pack_parts(pack_name: str) -> list[Path]:
+    direct = PACK_DIR / pack_name
+    if direct.exists():
+        return [direct]
+
+    parts = sorted(PACK_DIR.glob(f"{pack_name}.part*"))
+    if not parts:
+        raise FileNotFoundError(f"Missing bundled asset pack: {direct}")
+    expected = [f"{pack_name}.part{index:03d}" for index in range(1, len(parts) + 1)]
+    actual = [path.name for path in parts]
+    if actual != expected:
+        raise RuntimeError(f"Incomplete asset pack {pack_name}: expected {expected}, found {actual}")
+    return parts
+
+
+@contextmanager
+def open_pack(pack_name: str) -> Iterator[BinaryIO]:
+    parts = pack_parts(pack_name)
+    if len(parts) == 1 and parts[0].suffix == ".zip":
+        with parts[0].open("rb") as stream:
+            yield stream
+        return
+
+    with tempfile.SpooledTemporaryFile(max_size=16 * 1024 * 1024) as stream:
+        for part in parts:
+            with part.open("rb") as source:
+                while chunk := source.read(1024 * 1024):
+                    stream.write(chunk)
+        stream.seek(0)
+        yield stream
+
+
+def safe_extract(pack_name: str, destination: Path) -> None:
     destination.mkdir(parents=True, exist_ok=True)
-    with zipfile.ZipFile(archive_path) as archive:
-        for member in archive.infolist():
-            member_path = Path(member.filename)
-            if member_path.is_absolute() or ".." in member_path.parts:
-                raise ValueError(f"Unsafe archive member: {member.filename}")
-        archive.extractall(destination)
+    with open_pack(pack_name) as stream:
+        with zipfile.ZipFile(stream) as archive:
+            bad_member = archive.testzip()
+            if bad_member:
+                raise RuntimeError(f"Corrupt asset pack {pack_name}: {bad_member}")
+            for member in archive.infolist():
+                member_path = Path(member.filename)
+                if member_path.is_absolute() or ".." in member_path.parts:
+                    raise ValueError(f"Unsafe archive member: {member.filename}")
+            archive.extractall(destination)
 
 
 def install(force: bool = False) -> list[Path]:
@@ -48,10 +87,7 @@ def install(force: bool = False) -> list[Path]:
         return []
 
     for pack_name, destination in PACKS.items():
-        archive_path = PACK_DIR / pack_name
-        if not archive_path.exists():
-            raise FileNotFoundError(f"Missing bundled asset pack: {archive_path}")
-        safe_extract(archive_path, destination)
+        safe_extract(pack_name, destination)
 
     remaining = [path for path in EXPECTED if not path.exists()]
     if remaining:

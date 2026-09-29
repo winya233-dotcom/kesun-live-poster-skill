@@ -7,9 +7,13 @@ import tempfile
 from pathlib import Path
 
 import cv2
-import mediapipe as mp
 import numpy as np
 from PIL import Image
+
+try:
+    import mediapipe as mp
+except ImportError:  # MediaPipe currently has no wheel for some Python versions.
+    mp = None
 
 
 SKILL_DIR = Path(__file__).resolve().parents[1]
@@ -41,7 +45,27 @@ def load_trimmed(path: Path, output_path: Path) -> tuple[Image.Image, np.ndarray
     return trimmed, np.asarray(rgb), box
 
 
+def detect_face_opencv(rgb: np.ndarray) -> dict[str, object]:
+    cascade_path = Path(cv2.data.haarcascades) / "haarcascade_frontalface_default.xml"
+    detector = cv2.CascadeClassifier(str(cascade_path))
+    gray = cv2.cvtColor(rgb, cv2.COLOR_RGB2GRAY)
+    faces = detector.detectMultiScale(gray, scaleFactor=1.08, minNeighbors=5, minSize=(40, 40))
+    if len(faces) == 0:
+        raise RuntimeError("OpenCV did not detect a face")
+    x, y, width, height = max(faces, key=lambda box: int(box[2]) * int(box[3]))
+    return {
+        "x": int(x),
+        "y": int(y),
+        "width": int(width),
+        "height": int(height),
+        "keypoints": [],
+        "detector": "opencv-haar",
+    }
+
+
 def detect_face(rgb: np.ndarray) -> dict[str, object]:
+    if mp is None:
+        return detect_face_opencv(rgb)
     options = mp.tasks.vision.FaceDetectorOptions(
         base_options=mp.tasks.BaseOptions(
             model_asset_path=str(runtime_model("blaze_face_short_range.tflite"))
@@ -60,10 +84,13 @@ def detect_face(rgb: np.ndarray) -> dict[str, object]:
         "width": int(box.width),
         "height": int(box.height),
         "keypoints": [{"x": float(p.x), "y": float(p.y)} for p in detection.keypoints],
+        "detector": "mediapipe",
     }
 
 
 def detect_pose(rgb: np.ndarray) -> dict[str, object] | None:
+    if mp is None:
+        return None
     options = mp.tasks.vision.PoseLandmarkerOptions(
         base_options=mp.tasks.BaseOptions(
             model_asset_path=str(runtime_model("pose_landmarker_lite.task"))
